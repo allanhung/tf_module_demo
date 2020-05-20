@@ -3,5 +3,5 @@ output "vpc" {
 }
 
 output "vswitches" {
-  value = alicloud_vswitch.switches
+  value = alicloud_vswitch.vswitches
 }
