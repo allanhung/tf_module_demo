@@ -76,15 +76,3 @@ variable "cluster_addons" {
     },
   ]
 }
-
-# ---------------------------------------------------------------------------------------------------------------------
-# Terragrunt Variables
-# ---------------------------------------------------------------------------------------------------------------------
-
-variable "environment" {
-  description = "Environment name"
-}
-
-variable "region" {
-  description = "Alicloud Region"
-}
