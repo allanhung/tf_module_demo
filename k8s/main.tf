@@ -59,18 +59,3 @@ resource "alicloud_cs_managed_kubernetes" "k8s" {
     }
   }
 }
-
-# ---------------------------------------------------------------------------------------------------------------------
-# State References
-# ---------------------------------------------------------------------------------------------------------------------
-
-data "terraform_remote_state" "vpc" {
-  backend = "oss"
-
-  config = {
-    prefix = var.terraform_relative_vpc_state_path
-    key    = "terraform.tfstate"
-    bucket = var.state_files_bucket_name
-    region = var.region
-  }
-}
