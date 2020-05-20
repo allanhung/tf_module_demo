@@ -1,21 +1,13 @@
-variable "vpc_cidr" {
+variable "cidr_block" {
   description = "VPC CIDR Block"
 }
 
-variable "availability_zones" {
-  description = "availability zones"
-  type        = list(string)
-}
-
-variable "vswitch_cidrs" {
+variable "vswitch_cidr_blocks" {
   description = "Private Subnets for the VPC"
   type        = list(string)
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# Terragrunt Variables
-# ---------------------------------------------------------------------------------------------------------------------
-
-variable "environment" {
-  description = "Environment Name"
+variable "bandwidth" {
+  description = "Bandwidth Associated with SNAT"
+  default     = 10
 }
