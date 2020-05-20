@@ -4,7 +4,7 @@
 
 resource "alicloud_vpc" "vpc" {
   name       = var.environment
-  cidr_block = var.cidr_block
+  cidr_block = var.vpc_cidr
 }
 
 resource "alicloud_vswitch" "vswitches" {
