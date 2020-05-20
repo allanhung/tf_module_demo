@@ -8,7 +8,7 @@ resource "alicloud_vpc" "vpc" {
 }
 
 resource "alicloud_vswitch" "vswitches" {
-  count      = length(data.alicloud_zones.default.zones)
+  count      = length(var.vswitch_cidrs)
   vpc_id     = alicloud_vpc.vpc.id
   cidr_block = element(var.vswitch_cidrs, count.index)
   availability_zone = element(var.availability_zones, count.index)
