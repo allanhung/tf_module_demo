@@ -1,3 +1,3 @@
 # AliCloud VPC Module
 
-Version: vv0.4.0
+Version: vv0.4.1
