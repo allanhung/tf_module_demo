@@ -5,13 +5,13 @@
 
 resource "alicloud_oss_bucket" "oss"{
   count         = length(var.oss_buckets)
-  bucket        = "${element(split(":",element(var.oss_buckets, count.index)),2)}"
+  bucket        = element(split(":",element(var.oss_buckets, count.index)),2)
   acl           = element(split(":",element(var.oss_buckets, count.index)),0)
   storage_class = element(split(":",element(var.oss_buckets, count.index)),1)
   tags = {
     role = "bucket"
-    Environment = element(split(".",element(split(":",element(var.oss_buckets, count.index)),2)),1)
-    stack = element(split(".",element(split(":",element(var.oss_buckets, count.index)),2)),0)
+    Environment = element(split("-",element(split(":",element(var.oss_buckets, count.index)),2)),1)
+    stack = element(split("-",element(split(":",element(var.oss_buckets, count.index)),2)),0)
   }
 }
 
@@ -19,6 +19,7 @@ resource "alicloud_oss_bucket" "oss"{
 # OSS policy
 # ---------------------------------------------------------------------------------------------------------------------
 # format: bucket:fullaccess, bucket/folder:readonly
+# The policy name contains invalid characters. It must only contain upper or lower case letters, numbers, and dash (-).
 
 resource "alicloud_ram_policy" "oss-policy" {
   count    = length(var.oss_access)
@@ -27,9 +28,7 @@ resource "alicloud_ram_policy" "oss-policy" {
   {
     "Statement": [
       {
-        "Action": {
-           "value": ${jsonencode(element(split(":",element(var.oss_access, count.index)),1) == "fullaccess" ? var.fullaccess : var.readonly)}
-        },
+        "Action": ${jsonencode(element(split(":",element(var.oss_access, count.index)),1) == "fullaccess" ? var.fullaccess : var.readonly)},
         "Effect": "Allow",
         "Resource": [
           "acs:oss:*:*:${element(split("/",element(split(":",element(var.oss_access, count.index)),0)),0)}",
